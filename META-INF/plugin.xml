@@ -1,0 +1,42 @@
+<idea-plugin version="2">
+  <id>com.chairbender.object-calisthenics-analyzer</id>
+  <name>Object Calisthenics Analyzer</name>
+  <version>1.0</version>
+  <vendor email="kwhipke1@gmail.com" url="https://github.com/chairbender">Kyle Hipke</vendor>
+
+  <description><![CDATA[
+      A plugin for analyzing your Java code's adherence to
+      <a href="https://github.com/chairbender/object-calisthenics-analyzer">Object Calisthenics</a>.
+    ]]></description>
+
+  <change-notes><![CDATA[
+
+    ]]>
+  </change-notes>
+
+  <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
+  <idea-version since-build="131"/>
+
+  <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
+       on how to target different products -->
+  <!-- uncomment to enable plugin in all products
+  <depends>com.intellij.modules.lang</depends>
+  -->
+
+  <extensions defaultExtensionNs="com.intellij">
+    <!-- Add your extensions here -->
+  </extensions>
+
+  <application-components>
+    <!-- Add your application components here -->
+  </application-components>
+
+  <project-components>
+    <!-- Add your project components here -->
+  </project-components>
+
+  <actions>
+    <!-- Add your actions here -->
+  </actions>
+
+</idea-plugin>
