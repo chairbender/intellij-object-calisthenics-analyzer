@@ -1,6 +1,7 @@
 package com.chairbender.object_calisthenics_analyzer.intellij.action;
 
 import com.chairbender.object_calisthenics_analyzer.ObjectCalisthenicsAnalyzer;
+import com.chairbender.object_calisthenics_analyzer.intellij.ui.ReportComponent;
 import com.chairbender.object_calisthenics_analyzer.violation.ViolationMonitor;
 import com.intellij.openapi.actionSystem.AnAction;
 import com.intellij.openapi.actionSystem.AnActionEvent;
@@ -15,6 +16,7 @@ import com.intellij.ui.content.Content;
 import com.intellij.ui.content.ContentManager;
 
 import javax.swing.*;
+import javax.swing.text.BadLocationException;
 import java.io.File;
 import java.io.IOException;
 
@@ -34,14 +36,15 @@ public class AnalyzeAction extends AnAction {
             ToolWindow reportWindow = toolWindowManager.registerToolWindow(Constants.REPORT_WINDOW_ID, false, ToolWindowAnchor.BOTTOM);
             reportWindow.setTitle("Calisthenics");
             ContentManager reportWindowContentManager = reportWindow.getContentManager();
-            JTextArea reportTextArea = new JTextArea();
-            reportTextArea.setText("This is a test");
-            Content reportContent = reportWindowContentManager.getFactory().createContent(reportTextArea,"Report",false);
+            ReportComponent reportComponent = new ReportComponent(analysis,project);
+            Content reportContent = reportWindowContentManager.getFactory().createContent(reportComponent,"Report",false);
             reportWindow.getContentManager().addContent(reportContent);
             reportWindow.activate(null);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (com.github.javaparser.ParseException e) {
+            e.printStackTrace();
+        } catch (BadLocationException e) {
             e.printStackTrace();
         }
     }
