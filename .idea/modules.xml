@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/intellij-object-calisthenics-analyzer.iml" filepath="$PROJECT_DIR$/intellij-object-calisthenics-analyzer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/../object-calisthenics-analyzer/object-calisthenics-analyzer.iml" filepath="$PROJECT_DIR$/../object-calisthenics-analyzer/object-calisthenics-analyzer.iml" />
     </modules>
   </component>
 </project>

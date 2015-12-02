@@ -1,5 +1,5 @@
 <idea-plugin version="2">
-  <id>com.chairbender.object-calisthenics-analyzer</id>
+  <id>com.chairbender.object_calisthenics_analyzer</id>
   <name>Object Calisthenics Analyzer</name>
   <version>1.0</version>
   <vendor email="kwhipke1@gmail.com" url="https://github.com/chairbender">Kyle Hipke</vendor>
@@ -37,6 +37,12 @@
 
   <actions>
     <!-- Add your actions here -->
+    <group id="ObjectCalisthenicsAnalyzer" text="_Object Calisthenics" description="Object Calisthenics menu">
+      <add-to-group group-id="MainMenu" anchor="last"  />
+      <action id="ObjectCalisthenicsAnalyzer.Analyze"
+              class="com.chairbender.object_calisthenics_analyzer.intellij.action.AnalyzeAction"
+              text="_Analyze" description="Run the analysis and generate a report." />
+    </group>
   </actions>
 
 </idea-plugin>
