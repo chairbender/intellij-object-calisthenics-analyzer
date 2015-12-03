@@ -3,6 +3,7 @@ package com.chairbender.object_calisthenics_analyzer.intellij.ui;
 import com.chairbender.object_calisthenics_analyzer.intellij.ui.action.ViolationLinkAction;
 import com.chairbender.object_calisthenics_analyzer.violation.Violation;
 import com.chairbender.object_calisthenics_analyzer.violation.ViolationMonitor;
+import com.chairbender.object_calisthenics_analyzer.violation.model.ViolationCategory;
 import com.intellij.openapi.project.Project;
 
 import javax.swing.*;
@@ -11,6 +12,10 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 /**
  * Jcomponent for displaying a report
@@ -30,14 +35,20 @@ public class ReportComponent extends JScrollPane {
         super.setViewportView(textPane);
         textPane.setEditable(false);
 
-
-        for (Violation violation : violationMonitor.getAllViolations()) {
-            Style regularBlue = styledDocument.addStyle("regularBlue", StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE));
-            StyleConstants.setForeground(regularBlue, Color.BLUE);
-            StyleConstants.setUnderline(regularBlue, true);
-            regularBlue.addAttribute("linkact", new ViolationLinkAction(violation, inProject));
-            styledDocument.insertString(styledDocument.getLength(), violation.getRuleInfo().describe() + "\n\t",null);
-            styledDocument.insertString(styledDocument.getLength(),violation.toString() + "\n", regularBlue);
+        Map<ViolationCategory,List<Violation>> violations = violationMonitor.getAllViolations();
+        ArrayList<ViolationCategory> violationCategories = new ArrayList<ViolationCategory>();
+        violationCategories.addAll(violations.keySet());
+        Collections.sort(violationCategories);
+        for (ViolationCategory violationCategory : violationCategories) {
+            styledDocument.insertString(styledDocument.getLength(), violationCategory.getRuleInfo().describe() + "\n", null);
+            for (Violation violation : violations.get(violationCategory)) {
+                Style regularBlue = styledDocument.addStyle("regularBlue", StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE));
+                StyleConstants.setForeground(regularBlue, Color.BLUE);
+                StyleConstants.setUnderline(regularBlue, true);
+                regularBlue.addAttribute("linkact", new ViolationLinkAction(violation, inProject));
+                styledDocument.insertString(styledDocument.getLength(), "\t", null);
+                styledDocument.insertString(styledDocument.getLength(),violation.toString() + "\n", regularBlue);
+            }
         }
 
         textPane.addMouseMotionListener(new MouseMotionListener() {
