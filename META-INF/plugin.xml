@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.chairbender.object_calisthenics_analyzer</id>
   <name>Object Calisthenics Analyzer</name>
-  <version>1.0</version>
+  <version>0.8</version>
   <vendor email="kwhipke1@gmail.com" url="https://github.com/chairbender">Kyle Hipke</vendor>
 
   <description><![CDATA[
@@ -15,7 +15,8 @@
   </change-notes>
 
   <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Build+Number+Ranges for description -->
-  <idea-version since-build="131"/>
+  <!-- TODO: Test on earlier versions -->
+  <idea-version since-build="133"/>
 
   <!-- please see https://confluence.jetbrains.com/display/IDEADEV/Plugin+Compatibility+with+IntelliJ+Platform+Products
        on how to target different products -->
