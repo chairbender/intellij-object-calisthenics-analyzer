@@ -10,3 +10,5 @@ If you want to get better at something, you should practice. By attempting to wr
 This plugin makes this process as easy as clicking a button. With it, you can quickly locate rule violations so you can focus on what matters: improving your design, iteration by iteration. It's also brutally honest, so you'll never cheat yourself out of a possible learning experience. It even tries to offer you some quick tips for handling each type of rule violation, summarizing the points in the original Object Calisthenics paper!
 
 Makes use of my [Object Calisthenics Analyzer API](https://github.com/chairbender/object-calisthenics-analyzer). Supports checking for pretty much all 9 calisthenics rules (with a few small exceptions).
+
+Please let me know of any issues or requests using the "Issues" feature of this repository!
