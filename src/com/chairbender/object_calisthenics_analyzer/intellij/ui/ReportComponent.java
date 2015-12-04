@@ -4,7 +4,9 @@ import com.chairbender.object_calisthenics_analyzer.intellij.ui.action.Violation
 import com.chairbender.object_calisthenics_analyzer.violation.Violation;
 import com.chairbender.object_calisthenics_analyzer.violation.ViolationMonitor;
 import com.chairbender.object_calisthenics_analyzer.violation.model.ViolationCategory;
+import com.intellij.ide.ui.UISettings;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.wm.ToolWindow;
 
 import javax.swing.*;
 import javax.swing.text.*;
