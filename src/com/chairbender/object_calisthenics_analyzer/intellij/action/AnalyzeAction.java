@@ -25,6 +25,7 @@ import java.io.IOException;
  * violations.
  */
 public class AnalyzeAction extends AnAction {
+    private static ToolWindow reportToolWindow;
 
     public void actionPerformed(AnActionEvent anActionEvent) {
         Project project = (Project) anActionEvent.getData(PlatformDataKeys.PROJECT);
@@ -33,13 +34,17 @@ public class AnalyzeAction extends AnAction {
             ViolationMonitor analysis = ObjectCalisthenicsAnalyzer.analyze(new File(project.getBasePath()), "UTF-8");
             //create that tool window
             ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(project);
-            ToolWindow reportWindow = toolWindowManager.registerToolWindow(Constants.REPORT_WINDOW_ID, false, ToolWindowAnchor.BOTTOM);
-            reportWindow.setTitle("Calisthenics");
-            ContentManager reportWindowContentManager = reportWindow.getContentManager();
+            if (reportToolWindow == null) {
+                reportToolWindow = toolWindowManager.registerToolWindow(Constants.REPORT_WINDOW_ID, false, ToolWindowAnchor.BOTTOM);
+                reportToolWindow.setTitle("Calisthenics");
+            }
+
+            ContentManager reportWindowContentManager = reportToolWindow.getContentManager();
+            reportWindowContentManager.removeAllContents(true);
             ReportComponent reportComponent = new ReportComponent(analysis,project);
             Content reportContent = reportWindowContentManager.getFactory().createContent(reportComponent,"Report",false);
-            reportWindow.getContentManager().addContent(reportContent);
-            reportWindow.activate(null);
+            reportWindowContentManager.addContent(reportContent);
+            reportToolWindow.activate(null);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (com.github.javaparser.ParseException e) {

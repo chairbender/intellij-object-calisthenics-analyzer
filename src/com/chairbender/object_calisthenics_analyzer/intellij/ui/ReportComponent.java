@@ -104,5 +104,7 @@ public class ReportComponent extends JScrollPane {
             }
         });
 
+        textPane.setCaretPosition(0);
+
     }
 }
