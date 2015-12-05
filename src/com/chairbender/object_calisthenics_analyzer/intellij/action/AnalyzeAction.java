@@ -35,7 +35,7 @@ public class AnalyzeAction extends AnAction {
             //create that tool window
             ToolWindowManager toolWindowManager = ToolWindowManager.getInstance(project);
             if (reportToolWindow == null) {
-                reportToolWindow = toolWindowManager.registerToolWindow(Constants.REPORT_WINDOW_ID, false, ToolWindowAnchor.BOTTOM);
+                reportToolWindow = toolWindowManager.registerToolWindow(Constants.REPORT_WINDOW_ID, true, ToolWindowAnchor.BOTTOM);
                 reportToolWindow.setTitle("Calisthenics");
             }
 

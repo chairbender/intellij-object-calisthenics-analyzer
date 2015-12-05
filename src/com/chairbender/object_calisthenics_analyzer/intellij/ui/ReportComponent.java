@@ -4,9 +4,17 @@ import com.chairbender.object_calisthenics_analyzer.intellij.ui.action.Violation
 import com.chairbender.object_calisthenics_analyzer.violation.Violation;
 import com.chairbender.object_calisthenics_analyzer.violation.ViolationMonitor;
 import com.chairbender.object_calisthenics_analyzer.violation.model.ViolationCategory;
+import com.intellij.designer.PaletteToolWindowContent;
 import com.intellij.ide.ui.UISettings;
+import com.intellij.openapi.editor.colors.EditorColorsScheme;
+import com.intellij.openapi.editor.colors.EditorColorsUtil;
+import com.intellij.openapi.fileEditor.impl.EditorTabColorProvider;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.ui.Messages;
 import com.intellij.openapi.wm.ToolWindow;
+import com.intellij.ui.UI;
+import com.intellij.ui.components.labels.LinkLabel;
+import com.intellij.util.ui.UIUtil;
 
 import javax.swing.*;
 import javax.swing.text.*;
@@ -32,24 +40,32 @@ public class ReportComponent extends JScrollPane {
     public ReportComponent(ViolationMonitor violationMonitor, Project inProject) throws BadLocationException {
         super();
 
+        EditorColorsScheme editorColorsScheme = EditorColorsUtil.getGlobalOrDefaultColorScheme();
         final JTextPane textPane = new JTextPane();
         final StyledDocument styledDocument = textPane.getStyledDocument();
         super.setViewportView(textPane);
-        textPane.setEditable(false);
+        UIUtil.setBackgroundRecursively(this, editorColorsScheme.getDefaultBackground());
 
         Map<ViolationCategory,List<Violation>> violations = violationMonitor.getAllViolations();
         ArrayList<ViolationCategory> violationCategories = new ArrayList<ViolationCategory>();
         violationCategories.addAll(violations.keySet());
         Collections.sort(violationCategories);
+        SimpleAttributeSet normalTextAttributes = new SimpleAttributeSet();
+        StyleConstants.setFontFamily(normalTextAttributes, editorColorsScheme.getConsoleFontName());
+        StyleConstants.setFontSize(normalTextAttributes, editorColorsScheme.getConsoleFontSize());
+
         for (ViolationCategory violationCategory : violationCategories) {
-            styledDocument.insertString(styledDocument.getLength(), violationCategory.getRuleInfo().describe() + "\n", null);
+
+            styledDocument.insertString(styledDocument.getLength(), violationCategory.getRuleInfo().describe() + "\n", normalTextAttributes);
             for (Violation violation : violations.get(violationCategory)) {
-                Style regularBlue = styledDocument.addStyle("regularBlue", StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE));
-                StyleConstants.setForeground(regularBlue, Color.BLUE);
-                StyleConstants.setUnderline(regularBlue, true);
-                regularBlue.addAttribute("linkact", new ViolationLinkAction(violation, inProject));
-                styledDocument.insertString(styledDocument.getLength(), "\t", null);
-                styledDocument.insertString(styledDocument.getLength(),violation.toString() + "\n", regularBlue);
+                Style linkStyle = styledDocument.addStyle("regularBlue", StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE));
+                StyleConstants.setForeground(linkStyle, UI.getColor("link.foreground"));
+                StyleConstants.setFontSize(linkStyle, editorColorsScheme.getConsoleFontSize());
+                StyleConstants.setFontFamily(linkStyle, editorColorsScheme.getConsoleFontName());
+                StyleConstants.setUnderline(linkStyle, true);
+                linkStyle.addAttribute("linkact", new ViolationLinkAction(violation, inProject));
+                styledDocument.insertString(styledDocument.getLength(), "\t", normalTextAttributes);
+                styledDocument.insertString(styledDocument.getLength(),violation.toString() + "\n", linkStyle);
             }
         }
 

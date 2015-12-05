@@ -1,7 +1,7 @@
 <idea-plugin version="2">
   <id>com.chairbender.object_calisthenics_analyzer</id>
   <name>Object Calisthenics Analyzer</name>
-  <version>0.8</version>
+  <version>0.82</version>
   <vendor email="kwhipke1@gmail.com" url="https://github.com/chairbender">Kyle Hipke</vendor>
 
   <description><![CDATA[
