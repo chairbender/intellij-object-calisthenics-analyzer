@@ -29,13 +29,20 @@ public class ViolationLinkAction {
         this.project = inProject;
     }
 
+    /**
+     * navigates to the violation. Doesn't do it if there was a problem locating the class.
+     */
     public void goToViolation() {
         //open the file indicated by the node
         JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(project);
-        PsiClass violatingClass = javaPsiFacade.findClass(violation.getFullyQualifiedViolationClass(), GlobalSearchScope.projectScope(project));
-        PsiFile violatingFile = violatingClass.getContainingFile();
-        Node violatingNode = violation.getViolationLocation();
-        OpenFileDescriptor descriptor = new OpenFileDescriptor(project, violatingFile.getVirtualFile(), violatingNode.getBeginLine()-1, violatingNode.getBeginColumn());
-        FileEditorManager.getInstance(project).openTextEditor(descriptor, true);
+        String className = violation.getFullyQualifiedViolationClass();
+        if (className != null) {
+            PsiClass violatingClass = javaPsiFacade.findClass(className, GlobalSearchScope.projectScope(project));
+            PsiFile violatingFile = violatingClass.getContainingFile();
+            Node violatingNode = violation.getViolationLocation();
+            OpenFileDescriptor descriptor = new OpenFileDescriptor(project, violatingFile.getVirtualFile(), violatingNode.getBeginLine() - 1, violatingNode.getBeginColumn());
+            FileEditorManager.getInstance(project).openTextEditor(descriptor, true);
+
+        }
     }
 }
