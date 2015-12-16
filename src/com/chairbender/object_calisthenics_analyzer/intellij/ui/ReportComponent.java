@@ -58,14 +58,19 @@ public class ReportComponent extends JScrollPane {
 
             styledDocument.insertString(styledDocument.getLength(), violationCategory.getRuleInfo().describe() + "\n", normalTextAttributes);
             for (Violation violation : violations.get(violationCategory)) {
-                Style linkStyle = styledDocument.addStyle("regularBlue", StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE));
-                StyleConstants.setForeground(linkStyle, UI.getColor("link.foreground"));
-                StyleConstants.setFontSize(linkStyle, editorColorsScheme.getConsoleFontSize());
-                StyleConstants.setFontFamily(linkStyle, editorColorsScheme.getConsoleFontName());
-                StyleConstants.setUnderline(linkStyle, true);
-                linkStyle.addAttribute("linkact", new ViolationLinkAction(violation, inProject));
-                styledDocument.insertString(styledDocument.getLength(), "\t", normalTextAttributes);
-                styledDocument.insertString(styledDocument.getLength(),violation.toString() + "\n", linkStyle);
+                //check that the violation can actually be printed
+                String violationString = violation.toString();
+                if (violationString != null) {
+                    Style linkStyle = styledDocument.addStyle("regularBlue", StyleContext.getDefaultStyleContext().getStyle(StyleContext.DEFAULT_STYLE));
+                    StyleConstants.setForeground(linkStyle, UI.getColor("link.foreground"));
+                    StyleConstants.setFontSize(linkStyle, editorColorsScheme.getConsoleFontSize());
+                    StyleConstants.setFontFamily(linkStyle, editorColorsScheme.getConsoleFontName());
+                    StyleConstants.setUnderline(linkStyle, true);
+                    linkStyle.addAttribute("linkact", new ViolationLinkAction(violation, inProject));
+
+                    styledDocument.insertString(styledDocument.getLength(), "\t", normalTextAttributes);
+                    styledDocument.insertString(styledDocument.getLength(), violation.toString() + "\n", linkStyle);
+                }
             }
         }
 
