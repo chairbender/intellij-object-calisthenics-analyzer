@@ -5,6 +5,8 @@ import com.github.javaparser.ast.Node;
 import com.intellij.openapi.fileEditor.FileEditorManager;
 import com.intellij.openapi.fileEditor.OpenFileDescriptor;
 import com.intellij.openapi.project.Project;
+import com.intellij.openapi.vfs.LocalFileSystem;
+import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.psi.JavaPsiFacade;
 import com.intellij.psi.PsiClass;
 import com.intellij.psi.PsiFile;
@@ -34,15 +36,9 @@ public class ViolationLinkAction {
      */
     public void goToViolation() {
         //open the file indicated by the node
-        JavaPsiFacade javaPsiFacade = JavaPsiFacade.getInstance(project);
-        String className = violation.getFullyQualifiedViolationClass();
-        if (className != null) {
-            PsiClass violatingClass = javaPsiFacade.findClass(className, GlobalSearchScope.projectScope(project));
-            PsiFile violatingFile = violatingClass.getContainingFile();
-            Node violatingNode = violation.getViolationLocation();
-            OpenFileDescriptor descriptor = new OpenFileDescriptor(project, violatingFile.getVirtualFile(), violatingNode.getBeginLine() - 1, violatingNode.getBeginColumn());
-            FileEditorManager.getInstance(project).openTextEditor(descriptor, true);
-
-        }
+        VirtualFile virtualFile = LocalFileSystem.getInstance().findFileByIoFile(violation.getSourceFile());
+        Node violatingNode = violation.getViolationLocation();
+        OpenFileDescriptor descriptor = new OpenFileDescriptor(project, virtualFile, violatingNode.getBeginLine() - 1, violatingNode.getBeginColumn());
+        FileEditorManager.getInstance(project).openTextEditor(descriptor, true);
     }
 }
