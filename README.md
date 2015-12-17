@@ -1,7 +1,7 @@
 # Intellij Object Calisthenics Analyzer Plugin
 An IntelliJ plugin for analyzing your Java source code's adherence to [Object Calisthenics](http://www.cs.helsinki.fi/u/luontola/tdd-2009/ext/ObjectCalisthenics.pdf).
 
-You can add this plugin in IntelliJ through File->Settings...->Plugins->Browse repositories... (search for object calisthenics). Or you can [download it here](https://github.com/chairbender/intellij-object-calisthenics-analyzer/releases/download/0.92/intellij-object-calisthenics-analyzer-0.92.zip). Install it in IntelliJ by going to File->Settings...->Plugins->Install plugin from disk... Once installed, you should see an additional menu item called Object Calisthenics. Click the "Analyze" action within that menu to generate a report covering all of the Java code in your project.
+You can add this plugin in IntelliJ through File->Settings...->Plugins->Browse repositories... (search for object calisthenics). Or you can [download it here](https://github.com/chairbender/intellij-object-calisthenics-analyzer/releases/download/0.95/intellij-object-calisthenics-analyzer-0.95.zip). Install it in IntelliJ by going to File->Settings...->Plugins->Install plugin from disk... Once installed, you should see an additional menu item called Object Calisthenics. Click the "Analyze" action within that menu to generate a report covering all of the Java code in your project.
 
 Do you want to get better at Object Oriented programming?
 
